@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TitleScreen from "./components/TitleScreen.jsx";
 import CaseScreen from "./components/CaseScreen.jsx";
 import PosterScreen from "./components/PosterScreen.jsx";
@@ -81,22 +81,24 @@ export default function App() {
 
   function pokeMob() {
     if (pokeAngryFlag || round >= TOTAL_ROUNDS) return;
-    setPokeCount((c) => {
-      const nc = c + 1;
-      if (nc >= 5) {
-        const angryLine = (POKE_LINE_SETS[mob.style] && POKE_LINE_SETS[mob.style].angry) || "……もういいです！";
-        setFeatureLog((prev) => [...prev, angryLine]);
-        setRound(TOTAL_ROUNDS);
-        setPokeAngryFlag(true);
-      } else if (nc >= 2) {
-        const warnLines = (POKE_LINE_SETS[mob.style] && POKE_LINE_SETS[mob.style].warn) || [];
-        if (warnLines.length) {
-          setPokeWarn({ text: pick(warnLines), key: Date.now() + Math.random() });
-        }
-      }
-      return nc;
-    });
+    setPokeCount((c) => c + 1);
 }
+useEffect(() => {
+    if (pokeCount === 0 || pokeAngryFlag) return;
+
+    if (pokeCount >= 5) {
+      const angryLine = (POKE_LINE_SETS[mob.style] && POKE_LINE_SETS[mob.style].angry) || "……もういいです！";
+      setFeatureLog((prev) => [...prev, angryLine]);
+      setRound(TOTAL_ROUNDS);
+      setPokeAngryFlag(true);
+    } else if (pokeCount >= 2) {
+      const warnLines = (POKE_LINE_SETS[mob.style] && POKE_LINE_SETS[mob.style].warn) || [];
+      if (warnLines.length) {
+        setPokeWarn({ text: pick(warnLines), key: Date.now() + Math.random() });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [pokeCount]);
 
   function finishCase(dataUrl) {
     setPosterImg(dataUrl);
