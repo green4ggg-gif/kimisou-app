@@ -6,7 +6,8 @@ const CANVAS_W = 320;
 const CANVAS_H = 320;
 const TRASH_SIZE = 44;
 
-export default function CaseScreen({ mob, featureLog, round, onNextTestimony, onPoke, pokeWarn, pokeAngryFlag, onFinish, onBack }) {  const mainRef = useRef(null);
+export default function CaseScreen({ mob, featureLog, round, onNextTestimony, onPoke, pokeWarn, pokeAngryFlag, onFinish, onBack }) {
+  const mainRef = useRef(null);
   const traceRef = useRef(null);
   const drawing = useRef(false);
   const last = useRef({ x: 0, y: 0 });
@@ -362,23 +363,37 @@ export default function CaseScreen({ mob, featureLog, round, onNextTestimony, on
             onTouchMove={moveDraw}
             onTouchEnd={endDraw}
           />
-          {fukuwaraiItems.map((p) => (
-            <div
-              key={p.id}
-              onPointerDown={() => partPointerDown(p.id)}
-              style={{
-                position: "absolute",
-                left: 4 + p.x - (p.size || 34) / 2,
-                top: 4 + p.y - (p.size || 34) / 2,
-                fontSize: p.size || 34,
-                cursor: "grab",
-                userSelect: "none",
-                lineHeight: 1,
-              }}
-            >
-              {p.emoji}
-            </div>
-          ))}
+          {fukuwaraiItems.map((p) => {
+            const s = p.size || 34; // サイズを変数にまとめる
+            return (
+              <div
+                key={p.id}
+                onPointerDown={() => partPointerDown(p.id)}
+                style={{
+                  position: "absolute",
+                  left: 4 + p.x,
+                  top: 4 + p.y,
+                  transform: "translate(-50%, -50%)",
+                  fontSize: s,
+                  cursor: mode === "fukuwarai" ? "grab" : "default",
+                  userSelect: "none",
+                  lineHeight: 1,
+                  
+                  // 1. ペン・消しゴム使用時はパーツを「貫通」して下に描けるようにする
+                  pointerEvents: mode === "fukuwarai" ? "auto" : "none",
+                  
+                  // 2. 当たり判定（箱のサイズ）を文字サイズの75%に縮めて余白を削る
+                  width: s * 0.75,
+                  height: s * 0.75,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                {p.emoji}
+              </div>
+            );
+          })}
         </div>
 
         {mode === "fukuwarai" && (
