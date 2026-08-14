@@ -6,6 +6,7 @@ import GalleryScreen from "./components/GalleryScreen.jsx";
 import {
   MOBS,
   CREATURE_CHANCE,
+  ABSTRACT_CHANCE,
   generateTestimony,
   pick,
   EARLY_END_CHANCE,
@@ -32,13 +33,19 @@ export default function App() {
   const [pokeAngryFlag, setPokeAngryFlag] = useState(false);
   const [pokeWarn, setPokeWarn] = useState(null);
 
+  const [isAbstract, setIsAbstract] = useState(false);
+  const [usedAbstract, setUsedAbstract] = useState([]);
+
   const [posterImg, setPosterImg] = useState(null);
   const [reaction, setReaction] = useState("");
   const [userName, setUserName] = useState("たか");
 
   function startCase() {
     setMob(pick(MOBS));
-    setIsCreature(Math.random() < CREATURE_CHANCE);
+const creature = Math.random() < CREATURE_CHANCE;
+setIsCreature(creature);
+setIsAbstract(!creature && Math.random() < ABSTRACT_CHANCE);
+setUsedAbstract([]);
     setFeatureLog([]);
     setRound(0);
     setUsedHuman([]);
@@ -52,15 +59,19 @@ export default function App() {
   }
 
   function nextTestimony() {
-    const { line, usedKey, isCreatureLine, usedTemplateIndex } = generateTestimony({
+    const { line, usedKey, isCreatureLine, isAbstractLine, usedTemplateIndex } = generateTestimony({
       mob,
       isCreature,
+      isAbstract,
       usedHuman,
       usedCreature,
+      usedAbstract,
       usedTemplates,
     });
     if (isCreatureLine) {
       setUsedCreature((u) => [...u, usedKey]);
+    } else if (isAbstractLine) {
+      setUsedAbstract((u) => [...u, usedKey]);
     } else {
       setUsedHuman((u) => [...u, usedKey]);
       if (usedTemplateIndex !== null) setUsedTemplates((u) => [...u, usedTemplateIndex]);
@@ -88,13 +99,18 @@ useEffect(() => {
 
     if (pokeCount >= 5) {
       const angryLine = (POKE_LINE_SETS[mob.style] && POKE_LINE_SETS[mob.style].angry) || "……もういいです！";
-      setFeatureLog((prev) => [...prev, angryLine]);
+      setFeatureLog((prev) => {
+        if (prev[prev.length - 1] === angryLine) return prev;
+        return [...prev, angryLine];
+      });
       setRound(TOTAL_ROUNDS);
       setPokeAngryFlag(true);
     } else if (pokeCount >= 2) {
       const warnLines = (POKE_LINE_SETS[mob.style] && POKE_LINE_SETS[mob.style].warn) || [];
       if (warnLines.length) {
-        setPokeWarn({ text: pick(warnLines), key: Date.now() + Math.random() });
+        setPokeWarn({ text: pick(warnLines), key: Date.now() + Math.random(), level: pokeCount });
+        const t = setTimeout(() => setPokeWarn(null), 2000);
+        return () => clearTimeout(t);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -129,15 +145,16 @@ useEffect(() => {
 
       {screen === "case" && mob && (
   <CaseScreen
-    mob={mob}
-    featureLog={featureLog}
-    round={round}
-    onNextTestimony={nextTestimony}
-    onPoke={pokeMob}
-    pokeWarn={pokeWarn}
-    onFinish={finishCase}
-    onBack={() => setScreen("title")}
-  />
+  mob={mob}
+  featureLog={featureLog}
+  round={round}
+  onNextTestimony={nextTestimony}
+  onPoke={pokeMob}
+  pokeWarn={pokeWarn}
+  pokeAngryFlag={pokeAngryFlag}
+  onFinish={finishCase}
+  onBack={() => setScreen("title")}
+/>
 )}
 
 {screen === "poster" && (
