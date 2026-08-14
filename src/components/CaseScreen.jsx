@@ -6,8 +6,7 @@ const CANVAS_W = 320;
 const CANVAS_H = 320;
 const TRASH_SIZE = 44;
 
-export default function CaseScreen({ mob, featureLog, round, onNextTestimony, onPoke, pokeWarn, onFinish, onBack }) {
-  const mainRef = useRef(null);
+export default function CaseScreen({ mob, featureLog, round, onNextTestimony, onPoke, pokeWarn, pokeAngryFlag, onFinish, onBack }) {  const mainRef = useRef(null);
   const traceRef = useRef(null);
   const drawing = useRef(false);
   const last = useRef({ x: 0, y: 0 });
@@ -259,7 +258,13 @@ export default function CaseScreen({ mob, featureLog, round, onNextTestimony, on
       <div style={{ display: "flex", gap: 10, alignItems: "center", justifyContent: "center", marginBottom: 8 }}>
     <div style={{ position: "relative" }}>
       <div id="mob-face-hitbox">
-        <MobFace mob={mob} size={54} onTap={onPoke} />
+        <MobFace
+  mob={mob}
+  size={54}
+  onTap={onPoke}
+  angry={pokeAngryFlag || pokeWarn !== null}
+  angryLevel={pokeAngryFlag ? 5 : (pokeWarn ? pokeWarn.level : 0)}
+/>
       </div>
       {bubble && (
         <div
