@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import MobFace from "./MobFace.jsx";
 import { COLORS, loadGallery, deleteGalleryEntry, POKE_ANGRY_REACTION_SETS, FONT_SETS } from "../data/gameData.js";
+import html2canvas from "html2canvas";
 
 export default function GalleryScreen({ onBack }) {
   const [entries, setEntries] = useState([]);
   const [selected, setSelected] = useState(null);
+  const posterRef = useRef(null);
 
   useEffect(() => {
     setEntries(loadGallery());
@@ -16,6 +18,27 @@ export default function GalleryScreen({ onBack }) {
     if (selected && selected.id === id) setSelected(null);
   }
 
+  async function handleSave() {
+    const canvas = await html2canvas(posterRef.current, {
+      backgroundColor: "#F8F2E2",
+      scale: 2,
+    });
+    canvas.toBlob((blob) => {
+      if (!blob) return;
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "kimisou_手配書.png";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      window.open(url, "_blank");
+      setTimeout(() => URL.revokeObjectURL(url), 30000);
+    }, "image/png");
+  }
+
+  // 詳細表示モード
   if (selected) {
     const isAngry = Object.values(POKE_ANGRY_REACTION_SETS).flat().includes(selected.reaction);
     return (
@@ -24,7 +47,7 @@ export default function GalleryScreen({ onBack }) {
           <span className="stamp">手配書 詳細</span>
         </div>
 
-        <div className="paper-card" style={{ padding: 10, marginBottom: 18 }}>
+        <div ref={posterRef} className="paper-card" style={{ padding: 10, marginBottom: 18 }}>
           <div className="tape" style={{ top: -12, left: 20, transform: "rotate(-8deg)" }} />
 
           <div style={{ textAlign: "center", marginBottom: 6 }}>
@@ -110,20 +133,30 @@ export default function GalleryScreen({ onBack }) {
               </div>
             </div>
           </div>
+
+          <div style={{ textAlign: "center", marginTop: 8 }}>
+            <span className="yomogi" style={{ fontSize: 11, opacity: 0.7 }}>
+              君も捜査官になろう！『キミソウ』
+            </span>
+          </div>
         </div>
 
-        <div style={{ display: "flex", justifyContent: "center", gap: 10 }}>
+        <div style={{ display: "flex", justifyContent: "center", gap: 10, flexWrap: "wrap" }}>
           <button className="btn-secondary" onClick={() => setSelected(null)}>
             一覧へ戻る
           </button>
+          <button className="btn-primary" onClick={handleSave}>
+            画像を保存する
+          </button>
           <button className="btn-secondary" onClick={() => handleDelete(selected.id)}>
-            🗑️ この手配書を削除
+            🗑️ 削除
           </button>
         </div>
       </div>
     );
   }
 
+  // 一覧モード
   return (
     <div>
       <div style={{ textAlign: "center", marginBottom: 12 }}>
