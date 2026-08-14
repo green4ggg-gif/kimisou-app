@@ -18,12 +18,61 @@ export const MOBS = [
 ];
 
 export const PARTS_HUMAN = {
-  hairType: ["ツンツン頭", "七三分け", "スキンヘッド", "ぼさぼさの長髪", "きっちりパーマ", "寝ぐせだらけの髪", "オールバック"],
-  hairColor: ["真っ黒な髪", "茶色っぽい髪", "金髪", "白髪交じりの髪", "なぜか緑の髪たぶんカツラ", "ピンクの髪"],
-  faceShape: ["丸顔", "面長の顔", "えらの張った輪郭", "三角っぽい輪郭", "四角い輪郭"],
-  eyes: ["タレ目", "ツリ目", "ギョロっとした目", "細い目", "左右で大きさが違う目"],
-  notable: ["とても大きい鼻", "つながった眉毛", "ほっぺたに大きなほくろ", "金歯", "ほっぺたに傷跡", "ずっとにやにやした表情", "鼻の下にちょびひげ"],
-  accessory: ["深くかぶった帽子", "サングラス", "マスク姿", "派手なマフラー", "でかい金のネックレス"],
+  hairType: [
+    "ツンツン頭", "七三分け", "スキンヘッド", "ぼさぼさの長髪", "きっちりパーマ",
+    "寝ぐせだらけの髪", "オールバック", "刈り上げ", "ドレッドヘア", "アフロ",
+    "モヒカン", "びしょ濡れの髪",
+  ],
+  hairColor: [
+    "真っ黒な髪", "茶色っぽい髪", "金髪", "白髪交じりの髪", "なぜか緑の髪（たぶんカツラ）",
+    "ピンクの髪", "青みがかった髪", "虹色っぽい髪（見間違いかも）", "白髪", "銀髪",
+  ],
+  faceShape: [
+    "丸顔", "面長の顔", "えらの張った輪郭", "三角っぽい輪郭", "四角い輪郭",
+    "ひょうたんみたいな輪郭", "やたら平べったい顔", "妙にツヤツヤした顔",
+  ],
+  eyes: [
+    "タレ目", "ツリ目", "ギョロっとした目", "細い目", "左右で大きさが違う目",
+    "やたら潤んだ目", "眠そうな目", "笑ってるみたいに見える目", "焦点の合ってない目",
+  ],
+  notable: [
+    "とても大きい鼻", "つながった眉毛", "ほっぺたに大きなほくろ", "金歯", "ほっぺたに傷跡",
+    "ずっとにやにやした表情", "鼻の下にちょびひげ", "耳がやたら大きい", "鼻がやたら低い",
+    "顎がしゃくれてる", "頬がこけてる", "妙に色白な肌", "普通の丸めがねをかけてた",
+    "ちょっと眠そうな顔だった", "特に特徴のない顔だった", "どこにでもいそうな顔だった",
+    "地味だけど清潔感のある顔だった", "ちょっと日焼けした顔だった", "無精髭が生えてた",
+    "普通にイケメンだった", "普通に地味な顔だった", "愛想の良さそうな顔だった",
+    "ちょっと気が弱そうな顔だった", "背が高そうな体格だった", "小柄な体格だった",
+    "がっしりした体格だった", "ほっそりした体つきだった", "笑うと八重歯が見えた",
+    "耳にピアスの穴があった", "普通に清潔感のある服装だった", "特に変わったところはなかった",
+],
+  iconic: [
+    "あんこが詰まってそうな顔でした",
+    "この人がいたら事件が起きそうな顔でした",
+    "おでこに「肉」って書いてありそうな顔でした",
+    "コンビニの前でしゃがんでそうな顔でした",
+    "習い事の先生っぽい顔でした",
+    "教頭先生みたいな顔でした",
+    "やんちゃな不良っぽいけど根は優しそうな顔でした",
+    "何かの主人公っぽい顔でした",
+    "ラスボスっぽい顔でした",
+    "その場のノリで結婚しそうな顔でした",
+    "全国大会で負けそうな顔でした",
+    "実は良い人そうな顔でした",
+    "得意げになりそうな顔でした",
+    "ちょっとハンバーグが好きそうな顔でした",
+    "何かのマスコットキャラみたいな顔でした",
+    "パチンコ屋の前にいそうな顔でした",
+    "駅前で演説してそうな顔でした",
+    "占い師っぽい顔でした",
+    "何かの妖精っぽい顔でした",
+    "同窓会で誰だか分からなそうな顔でした",
+  ],
+  accessory: [
+    "深くかぶった帽子", "サングラス", "マスク姿", "派手なマフラー", "でかい金のネックレス",
+    "変な柄のシャツ", "アロハシャツ", "ダボダボのジャージ", "謎の着ぐるみっぽい何か",
+    "妙にキラキラした指輪",
+  ],
 };
 
 export const TEMPLATE_SETS = {
@@ -99,6 +148,24 @@ export const PARTS_CREATURE = [
   "全体的に、湿っていた気がします",
 ];
 
+export const ABSTRACT_CHANCE = 0.10; 
+
+export const PARTS_ABSTRACT = [
+  "なんというか、中間管理職みたいな哀愁がありましたね。",
+  "私と同じ柔軟剤の匂いがしたんです。",
+  "声のトーンからして、絶対に休日はインドア派ですね。",
+  "とにかく、昨日の晩御飯みたいな顔でした。",
+  "まるで、冬の夜空に浮かぶ三日月のような瞳をしてました……。",
+  "輪郭は、春の雪解けを思わせる儚さがありましたね……。",
+  "一言で言うと、じゃがいもみたいな顔でしたね。",
+  "妙に、月曜日の朝みたいな空気をまとってました。",
+  "説明が難しいんですが、水曜日って感じの顔でした。",
+  "とにかく「お疲れ様です」が似合いそうな顔でしたね。",
+  "全体的に、ちょっと納豆の匂いがした気がします。",
+  "なんか、履き古した靴みたいな安心感がありました。",
+  "強いて言うなら、駅前の看板みたいな顔でしたね。",
+];
+
 export const CREATURE_CHANCE = 0.12;
 
 export const REACTION_LINE_SETS_NORMAL = {
@@ -141,32 +208,81 @@ export const REACTION_LINE_SETS_NORMAL = {
 
 export const POKE_LINE_SETS = {
   obaa: {
-    warn: ["あらあら、くすぐったいねえ。", "ちょいちょい触るんじゃないよ。"],
+    warn: [
+      "あらあら、くすぐったいねえ。",
+      "ちょいちょい触るんじゃないよ。",
+      "こら、いたずらしないでおくれ。",
+      "あんた、暇なのかい？",
+      "ふふ、遊びたい盛りだねえ。",
+      "そぉれ以上はダメだよ、ほんとに。",
+    ],
     angry: "もう！いい加減にしとくれ！話はここまでだよ！",
   },
   salary: {
-    warn: ["...あの、何してんですかやめてください", "ちょっと、困るんですけど"],
+    warn: [
+      "……あの、やめてもらえますか。",
+      "ちょっと、困るんですけど。",
+      "仕事中なんですけど……。",
+      "あの、真面目にやってもらえます？",
+      "……正直、ちょっと引いてます。",
+      "いい大人が何やってるんですか。",
+    ],
     angry: "いい加減にしてください！もう帰ります！",
   },
   gakusei: {
-    warn: ["え、やめてください...", "あの、触らないでもらえますか？"],
+    warn: [
+      "え、やめてください……。",
+      "あの、触らないでもらえますか？",
+      "な、なんですか急に……。",
+      "ちょっと怖いんですけど……。",
+      "……真面目にやってもらえませんか。",
+      "あの、証言の途中なんですが……。",
+    ],
     angry: "もういいです！これ以上は無理です！",
   },
   hen: {
-    warn: ["え、なにしてんの", "ちょっとやめてくんない？"],
+    warn: [
+      "え、なにしてんの。",
+      "ちょっとやめてくんない？",
+      "は？意味わかんないんだけど。",
+      "あんたヒマ人でしょ、絶対。",
+      "……もしかしてバカにしてる？",
+      "うわ、キモ。やめて。",
+    ],
     angry: "うざ！もう知らない、帰る！",
   },
   anntyan: {
-    warn: ["おい、やめんかい", "こら、いい加減にしろよ"],
+    warn: [
+      "おい、やめろって。",
+      "こら、いい加減にしろよ。",
+      "おいこら、聞いてんのか？",
+      "調子乗ってんじゃねえぞ。",
+      "あ？もう一回言ってみろ。",
+      "いい歳して何やってんだ、お前。",
+    ],
     angry: "おらぁ！もうやめんかい！こっちも忙しいんだよ！",
   },
   kodomo: {
-    warn: ["やだ、やめてよぉ", "もう、やめてってばー！"],
-    angry: "もう！やめてって言ったじゃん！😢",
+    warn: [
+      "やだ、やめてよぉ。",
+      "もう、やめてってばー！",
+      "こら！だめだよ！",
+      "せんせいに言うよ！",
+      "いたいよぉ、やめて！",
+      "もう、しらないもん！",
+    ],
+    angry: "もう！やめてって言ったじゃん！(´；ω；｀)",
   },
   nito: {
-    warn: ["あの、もうふざけすぎですよ！", "……そろそろ、ご勘弁を"],
-    angry: "...も、もうやめろ！か、勘弁してください！",
+    warn: [
+      "……あの、お戯れが過ぎませんか。",
+      "……そろそろ、ご勘弁を。",
+      "……いささか、不躾ではございませんか。",
+      "……何用でございましょうか、それは。",
+      "……拙者、困惑しております。",
+      "……お戯れも、ほどほどに願いたく。",
+    ],
+    angry: "……もう結構でございます！勘弁してください……！",
   },
 };
 
@@ -228,22 +344,32 @@ export function pick(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-export function generateTestimony({ mob, isCreature, usedHuman, usedCreature, usedTemplates }) {
+export function generateTestimony({ mob, isCreature, isAbstract, usedHuman, usedCreature, usedAbstract, usedTemplates }) {
   if (isCreature) {
     const remaining = PARTS_CREATURE.filter((l) => !usedCreature.includes(l));
     const line = pick(remaining.length ? remaining : PARTS_CREATURE);
-    return { line, usedKey: line, isCreatureLine: true, usedTemplateIndex: null };
+    return { line, usedKey: line, isCreatureLine: true, isAbstractLine: false, usedTemplateIndex: null };
   }
-  const keys = Object.keys(PARTS_HUMAN);
-  let key, value, attempts = 0;
-  do {
-    key = pick(keys);
-    value = pick(PARTS_HUMAN[key]);
-    attempts++;
-  } while (usedHuman.includes(`${key}:${value}`) && attempts < 25);
+
+  if (isAbstract) {
+    const remaining = PARTS_ABSTRACT.filter((l) => !usedAbstract.includes(l));
+    const line = pick(remaining.length ? remaining : PARTS_ABSTRACT);
+    return { line, usedKey: line, isCreatureLine: false, isAbstractLine: true, usedTemplateIndex: null };
+  }
+
+  const usedKeys = usedHuman.map((k) => k.split(":")[0]);
+  const allKeys = Object.keys(PARTS_HUMAN);
+  const remainingKeys = allKeys.filter((k) => !usedKeys.includes(k));
+  const keyPool = remainingKeys.length ? remainingKeys : allKeys;
+
+  const key = pick(keyPool);
+  const value = pick(PARTS_HUMAN[key]);
+
+  if (key === "iconic") {
+    return { line: value, usedKey: `${key}:${value}`, isCreatureLine: false, isAbstractLine: false, usedTemplateIndex: null };
+  }
 
   const templates = TEMPLATE_SETS[mob.style] || DEFAULT_TEMPLATES;
-
   const availableIndexes = templates
     .map((_, i) => i)
     .filter((i) => !(usedTemplates || []).includes(i));
@@ -251,7 +377,7 @@ export function generateTestimony({ mob, isCreature, usedHuman, usedCreature, us
   const chosenIndex = pick(indexPool);
   const template = templates[chosenIndex];
 
-  return { line: template(value), usedKey: `${key}:${value}`, isCreatureLine: false, usedTemplateIndex: chosenIndex };
+  return { line: template(value), usedKey: `${key}:${value}`, isCreatureLine: false, isAbstractLine: false, usedTemplateIndex: chosenIndex };
 }
 
 const GALLERY_KEY = "kimisou_gallery";
